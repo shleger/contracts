@@ -3,7 +3,7 @@ import React from 'react'
 const Contacts = ({ contacts }) => {
   return (
       <div>
-        <center><h1>Contact List</h1></center>
+        <h1>Contact List</h1>
         {contacts.map((contact) => (
             <div className="card">
               <div className="card-body">

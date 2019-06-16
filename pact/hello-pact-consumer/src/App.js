@@ -27,20 +27,11 @@ class App extends Component {
     contacts: []
   };
 
-  // componentDidMount() {
-  //   fetch('http://jsonplaceholder.typicode.com/users')
-  //   .then(res => res.json())
-  //   .then((data) => {
-  //     this.setState({contacts: data})
-  //   })
-  //   .catch(console.log)
-  // }
-
   componentDidMount() {
     client.fetchProviderData()
     .then(response => {
-      console.log(response.body);
-      this.setState({contacts: response.body})
+      console.log(response);
+      this.setState({contacts: response})
     })
   }
 
