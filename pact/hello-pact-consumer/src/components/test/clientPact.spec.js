@@ -7,6 +7,9 @@ const API_PORT = process.env.API_PORT || 9123;
 const {fetchProviderData} = require('../client');
 chai.use(chaiAsPromised);
 
+const { somethingLike: like, term } = require('@pact-foundation/pact').Matchers
+
+
 // Configure and import consumer API
 // Note that we update the API endpoint to point at the Mock Service
 const LOG_LEVEL = process.env.LOG_LEVEL || 'WARN';
@@ -20,29 +23,8 @@ const provider = new Pact({
   logLevel: LOG_LEVEL,
   spec: 2,
 });
-const expectedBody = {
-  "id": 1,
-  "name": "Leanne Graham",
-  "username": "Bret",
-  "email": "Sincere@april.biz",
-  "address": {
-    "street": "Kulas Light",
-    "suite": "Apt. 556",
-    "city": "Gwenborough",
-    "zipcode": "92998-3874",
-    "geo": {
-      "lat": "-37.3159",
-      "lng": "81.1496"
-    }
-  },
-  "phone": "1-770-736-8031 x56442",
-  "website": "hildegard.org",
-  "company": {
-    "name": "Romaguera-Crona",
-    "catchPhrase": "Multi-layered client-server neural-net",
-    "bs": "harness real-time e-markets"
-  }
-};
+
+const emailExample = "Sincere@april.biz";
 
 describe('Pact with Our Provider', () => {
   describe('given data count > 0', () => {
@@ -58,7 +40,15 @@ describe('Pact with Our Provider', () => {
             willRespondWith: {
               status: 200,
               headers: {'Content-Type': 'application/json; charset=utf-8'},
-              body: expectedBody,
+              body: {
+                email: term({
+                  generate: emailExample,
+                  matcher:
+                      '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
+                }),
+                username: like("Bret"),
+                id: like(1000)
+              },
             },
           })
         })
