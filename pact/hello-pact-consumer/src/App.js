@@ -3,6 +3,9 @@ import './App.css';
 import React, {Component} from 'react';
 import Contacts from './components/contacts';
 
+//https://codeburst.io/how-to-easily-set-up-node-environment-variables-in-your-js-application-d06740f9b9bd
+// require('dotenv').config();
+
 const client = require('./components/client');
 
 class App extends Component {
