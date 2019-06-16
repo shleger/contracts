@@ -5,6 +5,10 @@ const expect = chai.expect;
 chai.use(chaiAsPromised);
 const API_HOST = `http://jsonplaceholder.typicode.com`;
 
+process.env.API_HOST  = API_HOST;
+process.env.API_PORT = 80;
+
+
 describe('Consumer', () => {
   describe('when a call to the User provider is made', () => {
     const {fetchProviderData} = require('../client');
