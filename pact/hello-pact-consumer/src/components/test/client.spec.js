@@ -35,7 +35,7 @@ describe('Consumer', () => {
           "catchPhrase": "Multi-layered client-server neural-net",
           "bs": "harness real-time e-markets"
         }
-      },);
+      });
 
       const response = fetchProviderData();
       return expect(response).to.eventually.have.property('username', "Bret")

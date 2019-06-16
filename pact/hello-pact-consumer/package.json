@@ -19,11 +19,13 @@
     "@pact-foundation/pact-node": "^6.20.0"
   },
   "scripts": {
+    "lint": "standard",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "test:client": "./node_modules/.bin/mocha src/components/test/client.spec.js"
+    "test:client": "./node_modules/.bin/mocha src/components/test/client.spec.js",
+    "test:pact:client": "./node_modules/.bin/mocha --timeout 10000 src/components/test/clientPact.spec.js"
   },
   "eslintConfig": {
     "extends": "react-app"
