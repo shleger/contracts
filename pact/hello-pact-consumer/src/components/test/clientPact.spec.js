@@ -39,7 +39,7 @@ describe('Pact with Our Provider', () => {
             },
             willRespondWith: {
               status: 200,
-              headers: {'Content-Type': 'application/json; charset=utf-8'},
+              headers: {'Content-Type': 'application/json; charset=UTF-8'},
               body: {
                 email: term({
                   generate: emailExample,
