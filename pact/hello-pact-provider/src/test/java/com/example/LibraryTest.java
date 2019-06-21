@@ -27,13 +27,4 @@ public class LibraryTest {
     context.verifyInteraction();
   }
 
-  @State({"provider accepts a new person", "person 42 exists"})
-  public void toCreatePersonState() {
-//    User user = new User();
-//    user.setId(42L);
-//    user.setFirstName("Arthur");
-//    user.setLastName("Dent");
-//    when(userRepository.findById(eq(42L))).thenReturn(Optional.of(user));
-//    when(userRepository.save(any(User.class))).thenReturn(user);
-  }
 }
