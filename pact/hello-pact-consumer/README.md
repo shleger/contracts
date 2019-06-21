@@ -9,4 +9,4 @@ yarn start
 #Test application 
 
 yarn test:pact:client
-yarn test
+yarn test:client
