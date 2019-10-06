@@ -1,0 +1,44 @@
+{
+  "id": 1,
+  "assigneeLogin": "test",
+  "controllerApprovalNecessity": true,
+  "calculationResult": 10,
+  "status": {
+    "code": "START_ACTION"
+  },
+  "personalInsurance": {
+    "code": "ENABLED",
+    "name": "Включено"
+  },
+  "creditTerm": 2,
+  "creditSum": 1,
+  "calcPerformed": true,
+  "uidForCalcParams": "4591181d-b58f-440f-bdf4-21f65c73d596",
+  "uid": "5591181d-b58f-440f-bdf4-21f65c73d596",
+  "requesterSystem": {
+    "code": "NEW",
+    "name": "Новая"
+  },
+  "supervisorDecision": {
+    "id": 123,
+    "assignee": "login_super",
+    "privateComment": "privateCommentSupervisor",
+    "publicComment": "publicCommentSupervisor",
+    "entityType": "order",
+    "decisionType": {
+      "code": "SUPERVISOR_CONFIRMED_ORDER",
+      "name": ""
+    }
+  },
+  "fraudDecision": {
+    "id": 456,
+    "assignee": "login_fraud",
+    "privateComment": "privateCommentFraud",
+    "publicComment": "publicCommentFraud",
+    "entityType": "order",
+    "decisionType": {
+      "code": "FRAUD_NOT_CONFIRMED_ORDER",
+      "name": ""
+    }
+  }
+}

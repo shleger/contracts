@@ -15,12 +15,16 @@ plugins {
 
 apply plugin: 'spring-cloud-contract'
 
+contracts{
+    baseClassForTests = "com.example.demo.BaseContractTest"
+}
+
 group = 'com.example.demo'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
 ext {
@@ -28,6 +32,12 @@ ext {
 }
 
 dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    
+
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner'
