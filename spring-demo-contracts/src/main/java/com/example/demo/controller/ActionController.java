@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.util.UUID;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,7 +52,18 @@ public class ActionController {
         .status(EnumDto.builder().code("START_ACTION").build())
         .id(id)
         .build();
+  }
 
 
+  @PostMapping("/check")
+  @ResponseBody
+  public ActionDto check(@RequestBody ActionDto actionDto) {
+    if (actionDto.getCreditSum().compareTo(BigDecimal.valueOf(1_000_000)) > 0) {
+      actionDto.setFraudDecision(DecisionDto.builder()
+          .decisionType(
+              EnumDto.builder().code("FRAUD_CONFIRMED_ORDER").name("Fraud check").build())
+          .build());
+    }
+    return actionDto;
   }
 }

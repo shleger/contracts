@@ -1,0 +1,26 @@
+request:
+  method: POST
+  url: /action/check
+  body:
+    assigneeLogin: "loginAssigned"
+    uid: "8888181d-b58f-440f-bdf4-21f65c738888"
+    creditSum: 2_000_000
+  headers:
+    Content-Type: application/json
+  matchers:
+    body:
+    - path: $.creditSum
+      type: by_regex
+      value: "[0-9]{10}"
+    - path: $.uid
+      type: by_regex
+      value: "[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"
+response:
+  status: 200
+  body:
+    fraudDecision:
+      decisionType:
+        code: "FRAUD_CONFIRMED_ORDER"
+        name: "Fraud check"
+  headers: # (10)
+    Content-Type: application/json;charset=UTF-8
