@@ -74,7 +74,7 @@ public class SpringConsumerContractTest {
         .get("http://localhost:8100/impl/version")
         .then()
         .statusCode(200)
-        .body("version", regexp("\\d{2}\\.\\d{2}\\.\\d{2}"))
+        .body("version", regexp("\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}"))
         .body("branch", regexp(alphabet))
         .body("commit", regexp(alphabet))
         .body("commitTime", notNullValue())
