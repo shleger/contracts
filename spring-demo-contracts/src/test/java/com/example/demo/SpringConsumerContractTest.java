@@ -4,7 +4,6 @@ import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 
 import io.restassured.http.ContentType;
 import java.util.regex.Pattern;
@@ -66,7 +65,7 @@ public class SpringConsumerContractTest {
 
 
   }
-
+/*
   @Test
   public void shouldReturnVersion() {
     String alphabet = "[a-zA-Z]+";
@@ -81,6 +80,7 @@ public class SpringConsumerContractTest {
     ;
 
   }
+*/
 
 
   private TypeSafeMatcher<String> regexp(String regexp) {
