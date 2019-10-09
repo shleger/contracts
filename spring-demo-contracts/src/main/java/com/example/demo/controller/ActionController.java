@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 import com.example.demo.dto.ActionDto;
 import com.example.demo.dto.DecisionDto;
 import com.example.demo.dto.EnumDto;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/action")
 public class ActionController {
 
-  @GetMapping("/{id}")
+  @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
   @ResponseBody
   public ActionDto actionGet(@PathVariable("id") Long id) {
 
@@ -55,7 +57,7 @@ public class ActionController {
   }
 
 
-  @PostMapping("/check")
+  @PostMapping(value = "/check",consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
   @ResponseBody
   public ActionDto check(@RequestBody ActionDto actionDto) {
     if (actionDto.getCreditSum().compareTo(BigDecimal.valueOf(1_000_000)) > 0) {

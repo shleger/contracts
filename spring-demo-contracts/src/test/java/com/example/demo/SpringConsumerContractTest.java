@@ -1,9 +1,12 @@
 package com.example.demo;
 
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
+import io.restassured.http.ContentType;
 import java.util.regex.Pattern;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
@@ -36,27 +39,61 @@ public class SpringConsumerContractTest {
         .body("assigneeLogin", equalTo("test"))
         .body("controllerApprovalNecessity", equalTo(true))
         .body("status.code", equalTo("START_ACTION"))
-        .body("uid", is(uuid()))
+        .body("uid", is(regexp("[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}")))
     ;
 
 
   }
 
 
+  @Test
+  public void shouldRedirectedToFraudAction() {
 
-  private TypeSafeMatcher<String> uuid() {
+    given()
+        .contentType(ContentType.JSON)
+        .body(
+            "{"
+                + "\"assigneeLogin\":\"loginAssigned\","
+                + "\"uid\":\"8888181d-b58f-440f-bdf4-21f65c738888\","
+                + "\"creditSum\":2000000000"
+                + "}")
+        .post("http://localhost:8100/action/check")
+        .then()
+        .statusCode(200)
+        .body("fraudDecision.decisionType.name", equalTo("Fraud check"))
+        .body("fraudDecision.decisionType.code", equalTo("FRAUD_CONFIRMED_ORDER"))
+    ;
 
-    return new TypeSafeMatcher<String>(){
 
+  }
+
+  @Test
+  public void shouldReturnVersion() {
+    String alphabet = "[a-zA-Z]+";
+    when()
+        .get("http://localhost:8100/impl/version")
+        .then()
+        .statusCode(200)
+        .body("version", regexp("\\d{2}\\.\\d{2}\\.\\d{2}"))
+        .body("branch", regexp(alphabet))
+        .body("commit", regexp(alphabet))
+        .body("commitTime", notNullValue())
+    ;
+
+  }
+
+
+  private TypeSafeMatcher<String> regexp(String regexp) {
+
+    return new TypeSafeMatcher<String>() {
       @Override
       public void describeTo(Description description) {
-        description.appendText("It is not UUID format");
-
+        description.appendText("Regexp does not match - " + regexp);
       }
 
       @Override
       protected boolean matchesSafely(String item) {
-        return Pattern.compile("[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}").matcher(item).matches();
+        return Pattern.compile(regexp).matcher(item).matches();
       }
     };
   }

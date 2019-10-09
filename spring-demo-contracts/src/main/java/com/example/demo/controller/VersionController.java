@@ -17,10 +17,10 @@ public class VersionController {
   @ResponseBody
   public VersionDto version() {
     return VersionDto.builder()
-        .branch("newBranch1")
+        .branch("newBranchA")
         .commit("commitHASH")
         .commitTime(LocalDateTime.now())
-        .version("1.0.0-SNAPSHOT")
+        .version("1.0.0")
         .build();
   }
 }

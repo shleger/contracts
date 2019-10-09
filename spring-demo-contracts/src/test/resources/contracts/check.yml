@@ -6,7 +6,7 @@ request:
     uid: "8888181d-b58f-440f-bdf4-21f65c738888"
     creditSum: 2_000_000
   headers:
-    Content-Type: application/json
+    Content-Type: "application/json; charset=UTF-8"
   matchers:
     body:
     - path: $.creditSum
